@@ -9,21 +9,33 @@ fn main()
 //    setlocale(locale_conf, "pl_PL.UTF-8"); // if your locale is like mine(zh_CN.UTF-8).
  let x = 5;
   /* Start ncurses. */
-  initscr();
+initscr();
   /* Print to the back buffer. */
-  addstr("Hello, world!");
+addstr("Hello, world!\n");
   /* Print some unicode(Chinese) string. */
   /* Update the screen. */
-  refresh();
+refresh();
 
-  let x = x+1;
-  let s: String = x.to_string();
-  let ss: &str = &s;
-  addstr(ss);
+let x = x+1;
+let s: String = x.to_string();
+let ss: &str = &s;
+addstr(ss);
    
   /* Wait for a key press. */
-  getch();
+ let mut quit = false;
+ while !quit {
+    
+    let key = getch();
+    match key as u8 as char {
+    'q'=>quit = true,
+    'h'=> {
+        addstr("hello");
+    },
+    _=>{}
+    
+ }
+ 
+ }
 
-  /* Terminate ncurses. */
   endwin();
 }

@@ -2,40 +2,56 @@ extern crate ncurses;
 
 use ncurses::*;
 
-fn main()
-{
-  /* If your locale env is unicode, you should use `setlocale`. */
-  // let locale_conf = LcCategory::all;
-//    setlocale(locale_conf, "pl_PL.UTF-8"); // if your locale is like mine(zh_CN.UTF-8).
- let x = 5;
-  /* Start ncurses. */
+//Rodio lib
+use std::fs::File;
+use std::io::BufReader;
+use rodio::{Decoder, OutputStream, source::Source};
+
+fn main() {
+
+//locale
+let locale_conf = LcCategory::all;
+setlocale(locale_conf, "en_US.UTF-8");
+
+//pointless
+let mut x = 0;
+
+//converting int to &str
+fn convert(x: u32) {
+    let s: String = x.to_string();                                              
+    let ss: &str = &s;
+    addstr(ss);
+    refresh();
+}
+
+//init ncurses-rs
 initscr();
-  /* Print to the back buffer. */
+noecho();
+
+//prints &str
 addstr("Hello, world!\n");
-  /* Print some unicode(Chinese) string. */
-  /* Update the screen. */
+
+//update
 refresh();
 
-let x = x+1;
-let s: String = x.to_string();
-let ss: &str = &s;
-addstr(ss);
-   
-  /* Wait for a key press. */
- let mut quit = false;
- while !quit {
+x += x+1;
+convert(x);
+let mut quit = false;
+while !quit {
     
     let key = getch();
     match key as u8 as char {
     'q'=>quit = true,
     'h'=> {
-        addstr("hello");
-    },
+        addstr("\nhello");
+   },
+   'c'=> {
+         clear();
+   },
     _=>{}
     
- }
+    }
+}
  
- }
-
-  endwin();
+endwin();
 }

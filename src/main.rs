@@ -45,7 +45,6 @@ fn main() {
 
     gtk::main();
 }
---------
 window.connect_button_pressevent(move |, event| {
     println!("Mouse button {} was pressed at coordinates ({}, {})", event.get_button(), event.get_x(), event.get_y());
     Inhibit(false)
